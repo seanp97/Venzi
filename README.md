@@ -17,7 +17,7 @@ I built Venzi as a helper project for my personal development, taking massive in
     //localhost:3001
     app.get('/', (c) => {
 	    c.json({
-		    message: 'Hello Venzi'
+		   message: 'Hello Venzi'
 	    })
     })
     
