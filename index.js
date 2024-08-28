@@ -1,3 +1,5 @@
+/* VenziJS created by Sean Pelser */
+
 import http from 'http';
 import { parse } from 'url';
 
@@ -13,7 +15,7 @@ class Venzi {
             'HEAD': [],
             'ALL': []
         };
-        this.middlewares = [];  // Store middleware functions
+        this.middlewares = [];
         this._server = http.createServer((req, res) => {
             this.handleRequest(req, res);
         });
@@ -38,7 +40,7 @@ class Venzi {
             text: (body) => this.text(res, body),
             json: (body) => this.json(res, body),
             html: (body) => this.html(res, body),
-            params: {}, // Initialize params as an empty object
+            params: {},
         };
 
         let index = 0;
@@ -47,10 +49,8 @@ class Venzi {
             if (index < this.middlewares.length) {
                 const middleware = this.middlewares[index++];
                 if (middleware.length === 3) {
-                    // Middleware with (req, res, next) signature
                     middleware(req, res, next);
                 } else {
-                    // Middleware with (context, next) signature
                     middleware(context, next);
                 }
             } else {
@@ -66,7 +66,7 @@ class Venzi {
             this.matchRoute('ALL', pathname);
 
         if (matchedRoute) {
-            const { handler, params = {} } = matchedRoute; // Default params to an empty object
+            const { handler, params = {} } = matchedRoute;
 
             context.params = params;
 
