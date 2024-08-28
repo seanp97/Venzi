@@ -13,6 +13,9 @@ I built Venzi as a helper project for my personal development, taking massive in
     import Venzi from "venzi"
     
     const app = new Venzi()
+
+    // Example - if cors is installed
+    app.use(cors())
     
     //localhost:3001
     app.get('/', (c) => {

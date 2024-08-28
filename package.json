@@ -1,6 +1,6 @@
 {
   "name": "venzi",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple, elegant & lightweight web framework",
   "main": "index.js",
   "type": "module",

@@ -13,39 +13,66 @@ class Venzi {
             'HEAD': [],
             'ALL': []
         };
+        this.middlewares = [];  // Store middleware functions
         this._server = http.createServer((req, res) => {
             this.handleRequest(req, res);
         });
+    }
+
+    use(middleware) {
+        this.middlewares.push(middleware);
     }
 
     handleRequest(req, res) {
         const { method, url } = req;
         const { pathname, query } = parse(url, true);
 
+        const context = {
+            req,
+            res,
+            pathname,
+            query,
+            header: (name) => this.getHeader(req, name),
+            status: (code) => this.status(res, code),
+            notFound: () => this.notFound(res),
+            text: (body) => this.text(res, body),
+            json: (body) => this.json(res, body),
+            html: (body) => this.html(res, body),
+            params: {}, // Initialize params as an empty object
+        };
+
+        let index = 0;
+
+        const next = () => {
+            if (index < this.middlewares.length) {
+                const middleware = this.middlewares[index++];
+                if (middleware.length === 3) {
+                    // Middleware with (req, res, next) signature
+                    middleware(req, res, next);
+                } else {
+                    // Middleware with (context, next) signature
+                    middleware(context, next);
+                }
+            } else {
+                this.handleRoute(context, method, pathname);
+            }
+        };
+
+        next();
+    }
+
+    handleRoute(context, method, pathname) {
         const matchedRoute = this.matchRoute(method, pathname) ||
-                             this.matchRoute('ALL', pathname);
+            this.matchRoute('ALL', pathname);
 
         if (matchedRoute) {
-            const { handler, params } = matchedRoute;
+            const { handler, params = {} } = matchedRoute; // Default params to an empty object
 
-            const context = {
-                req,
-                res,
-                params,
-                query,
-                header: (name) => this.getHeader(req, name),
-                param: (name) => params[name],
-                query: (name) => query[name],
-                text: (body) => this.text(res, body),
-                json: (body) => this.json(res, body),
-                html: (body) => this.html(res, body),
-                status: (code) => this.status(res, code),
-                notFound: () => this.notFound(res)
-            };
+            context.params = params;
 
             handler(context);
         } else {
-            this.notFound(res);
+            this.notFound(context.res);
         }
     }
 
