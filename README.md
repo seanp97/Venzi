@@ -16,29 +16,29 @@ I built Venzi as a helper project for my personal development, taking massive in
     
     //localhost:3001
     app.get('/', (c) => {
-	c.json({
-	    message: 'Hello Venzi'
-	})
+		c.json({
+		    message: 'Hello Venzi'
+		})
     })
     
     //localhost:3001/html
     app.get('/html', (c) => {
-        c.html('<h1>This is a Heading!</h1>')
+        	c.html('<h1>This is a Heading!</h1>')
     })
     
     //localhost:3001/1
     app.get('/:id', (c) => {
-        const id = c.param('id')
-	c.text(`id: ${id}`)
+	        const id = c.param('id')
+		c.text(`id: ${id}`)
     })
     
     //localhost:3001/id?id=1
     app.get('/id', (c) => {
-	const id = c.query('id')
-	c.text(`id: ${id}`)
+		const id = c.query('id')
+		c.text(`id: ${id}`)
     })
     
     const PORT = 3001 || 5001
-	app.listen(PORT, () => {
-	console.log(`Server is running on http://localhost:${PORT}`)
+		app.listen(PORT, () => {
+		console.log(`Server is running on http://localhost:${PORT}`)
     })
