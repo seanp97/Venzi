@@ -1,12 +1,17 @@
 {
   "name": "venzi",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A simple, elegant & lightweight web framework",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seanp97/Venzi"
+  },
+  "homepage": "https://github.com/seanp97/Venzi",
   "keywords": [
     "framework",
     "web"
