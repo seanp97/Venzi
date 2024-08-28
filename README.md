@@ -8,6 +8,10 @@ Venzi is a simple framework with minimalistic design and small footprint, making
 
 I built Venzi as a helper project for my personal development, taking massive inspiration from Express and Hono. Venzi does not try to be better, just a lot less size. Coming from a different tech stack, I built Venzi just to see how I would implement it.
 
+## Installing Venzi
+
+	npm i venzi
+
 ## Getting started
 
     import Venzi from "venzi"
