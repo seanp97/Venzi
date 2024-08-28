@@ -14,7 +14,12 @@
   "homepage": "https://github.com/seanp97/Venzi",
   "keywords": [
     "framework",
-    "web"
+    "web",
+    "backend",
+    "app",
+    "node",
+    "api",
+    "http"
   ],
   "author": "Sean Pelser",
   "license": "ISC"
